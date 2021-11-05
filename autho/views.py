@@ -10,11 +10,16 @@ class TestAPIView(APIView):
     def get(self, request, *args, **kwargs):
         data = self.request.query_params
         code = data.get('code', None)
-        # if code is None:
-        #     return Response({'error' : 'error'})
-        if data.get('code') is None:
-            data = {'code': code, 'grant_type': 'authorization_code', 'client_id':ID, 'client_secret' : SECRET,
-                    'redirect_uri' : 'https://kangho.space/autho/'}
-            res = requests.post('https://api.instagram.com/oauth/access_token', data=data)
-            return Response(res.json())
-        return Response(data)
+        data = {'code': code, 'grant_type': 'authorization_code', 'client_id': ID, 'client_secret': SECRET,
+                'redirect_uri': 'https://kangho.space/autho/'}
+        res = requests.post('https://api.instagram.com/oauth/access_token', data=data)
+        return Response(res.json())
+
+# class RedirectAPIView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         data = self.request.DATA
+#         code = data.get('code', None)
+#         data = {'code': code, 'grant_type': 'authorization_code', 'client_id': ID, 'client_secret': SECRET,
+#                 'redirect_uri': 'https://kangho.space/autho/'}
+#         res = requests.post('https://api.instagram.com/oauth/access_token', data=data)
+#         return Response(res.json())
