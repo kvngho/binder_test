@@ -17,6 +17,10 @@ class TestAPIView(APIView):
         user_id = res.json().get('user_id')
         url = f'https://graph.instagram.com/me?fields=id,username&access_token={access_token}'
         res =requests.get(url)
+        id = res.json().get('id')
+        username = res.json().get('username')
+        url = f'https://graph.instagram.com/me/media?fields=id,caption,media_url&access_token={access_token}'
+        res = requests.get(url)
         return Response(res.json())
 
 # class RedirectAPIView(APIView):
