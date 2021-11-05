@@ -13,6 +13,10 @@ class TestAPIView(APIView):
         data = {'code': code, 'grant_type': 'authorization_code', 'client_id': ID, 'client_secret': SECRET,
                 'redirect_uri': 'https://kangho.space/autho/'}
         res = requests.post('https://api.instagram.com/oauth/access_token', data=data)
+        access_token = res.json().get('access_token')
+        user_id = res.json().get('user_id')
+        url = f'https://graph.instagram.com/me?fields=id,username&access_token={access_token}'
+        res =requests.get(url)
         return Response(res.json())
 
 # class RedirectAPIView(APIView):
